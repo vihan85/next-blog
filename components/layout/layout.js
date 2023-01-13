@@ -1,10 +1,10 @@
 import MainNavigation from "./main-navigation";
 
-function Layout({ childrent }) {
+function Layout({ children }) {
   return (
     <>
       <MainNavigation />
-      <main>{childrent}</main>
+      <main>{children}</main>
     </>
   );
 }
