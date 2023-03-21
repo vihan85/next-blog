@@ -1,11 +1,14 @@
+import { Fragment } from "react";
+
 import MainNavigation from "./main-navigation";
 
-function Layout({ children }) {
+function Layout(props) {
   return (
-    <>
+    <Fragment>
       <MainNavigation />
-      <main>{children}</main>
-    </>
+      <main>{props.children}</main>
+    </Fragment>
   );
 }
+
 export default Layout;
