@@ -1,10 +1,10 @@
 import AuthForm from "../components/auth/auth-form";
 
-function Auth() {
+function AuthPage() {
   return (
     <>
       <AuthForm />
     </>
   );
 }
-export default Auth;
+export default AuthPage;
