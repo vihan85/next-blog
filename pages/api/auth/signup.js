@@ -39,5 +39,6 @@ async function handler(req, res, next) {
   res.status(201).json({
     message: "create user!",
   });
+  return result
 }
 export default handler;
