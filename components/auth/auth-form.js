@@ -5,8 +5,8 @@ async function createUser(email, password) {
   const response = await fetch("/api/auth/signup", {
     method: "POST",
     body: JSON.stringify({
-      email,
-      password,
+      email: email,
+      password: password,
     }),
     headers: {
       "Content-Type": "application/json",
@@ -16,28 +16,41 @@ async function createUser(email, password) {
   if (!response.ok) {
     throw new Error(data.message || "something went wrong");
   }
+  return data
 }
 
 function AuthForm() {
   const [isLogin, setIsLogin] = useState(true);
   const inputEmail = useRef();
   const inputPassword = useRef();
-  const enterEmail = inputEmail.current;
-  const enterPassword = inputPassword.current;
+  
   function switchAuthModeHandler() {
     setIsLogin((prevState) => !prevState);
   }
-  function submitHandler(e) {
+
+  async function submitHandler(e) {
     e.preventDefault();
+    const enterEmail = inputEmail.current.value;
+    const enterPassword = inputPassword.current.value;
+    console.log(enterEmail, enterPassword)
+    //optional add validation
+
     if (isLogin) {
+      //code login
     } else {
-      createUser(enterEmail);
+      //signup
+      try {
+        const result = await createUser(enterEmail, enterPassword);
+        console.log(result)
+      }catch(err){
+        console.log(err)
+      }
     }
   }
   return (
     <section className={classes.auth}>
       <h1>{isLogin ? "Login" : "Sign Up"}</h1>
-      <form>
+      <form onSubmit={submitHandler}>
         <div className={classes.control}>
           <label htmlFor="email">Your Email</label>
           <input ref={inputEmail} type="email" id="email" required />
@@ -47,7 +60,7 @@ function AuthForm() {
           <input ref={inputPassword} type="password" id="password" required />
         </div>
         <div className={classes.actions}>
-          <button onClick={submitHandler}>
+          <button >
             {isLogin ? "Login" : "Create Account"}
           </button>
           <button
